@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<object-views xmlns="http://axelor.com/xml/ns/object-views"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://axelor.com/xml/ns/object-views http://axelor.com/xml/ns/object-views/object-views_5.0.xsd">
+
+	<grid name="calendar-grid" model="com.axelor.apps.base.db.ICalendar" title="Calendars">
+	  <field name="name" />
+	  <field name="user"/>
+	</grid>
+	
+	<form name="calendar-form" model="com.axelor.apps.base.db.ICalendar" title="Calendar" onSave="com.axelor.apps.base.web.ICalendarController:validate" >
+	<toolbar>
+		  <button name="testConnect" title="Connect" onClick="save,com.axelor.apps.base.web.ICalendarController:validate,save,com.axelor.apps.base.web.ICalendarController:testConnect"/>
+		  <button name="exportCalendar" title="Export calendar" onClick="com.axelor.apps.base.web.ICalendarController:exportCalendar"/>
+    	  <button name="importCalendar" title="Import calendar" onClick="com.axelor.apps.base.web.ICalendarController:importCalendar"/>
+    	  <button name="synchronizeCalendars" title="Synchronize calendar" onClick="save,com.axelor.apps.base.web.ICalendarController:validate,save,com.axelor.apps.base.web.ICalendarController:synchronizeCalendar"/>
+    </toolbar>
+	  <panel name="main" >
+		  <field name="name" />
+		  <field name="user" canNew="false" canEdit="false" canView="false"/>
+		  <field name="keepRemote" />
+	  </panel>
+	  <panel name="connectionSettings" title="Connection settings">
+		  <field name="url"/>
+		  <field name="typeSelect"/>
+		  <field name="isSslConnection" onChange="action-calendar-record-set-port"/>
+		  <field name="port"/>
+		  <field name="isValid" readonly="true"/>
+		  <field name="synchronizationSelect"/>
+		</panel>
+		<panel name="credentials" title="Credentials">
+		  <field name="login"/>
+			<field name="change" title="Change password?" showIf="id &amp;&amp; !$readonly()" widget="boolean"/>
+			<panel colSpan="12" showIf="change || !id">
+				<field name="newPassword" title="Password" placeholder="new password" requiredIf="!id || change" validIf="(!change &amp;&amp; id) || confirm == newPassword" widget="password" />
+				<field name="confirm" title="Confirm" placeholder="confirm password" widget="password"/>
+				<field name="password" hidden="true"/>
+			</panel>
+		</panel>
+	  <panel-dashlet action="action-icalendar-view-ievent-dashlet"/>
+	</form>
+	
+	<action-record name="action-calendar-record-set-port" model="com.axelor.apps.base.db.ICalendar">
+     	<field name="port" expr="eval: isSslConnection ? 443 : 80"/>
+    </action-record>
+	
+</object-views>
