@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<domain-models xmlns="http://axelor.com/xml/ns/domain-models"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://axelor.com/xml/ns/domain-models http://axelor.com/xml/ns/domain-models/domain-models_5.0.xsd">
+
+	<module name="base" package="com.axelor.apps.base.db"/>
+
+	<entity name="FlatDetails" lang="java">
+
+	<string name="block" title="Block"/>
+	<integer name="flatno" title="Flat No"/>
+	<string name="flattype" title="Flat Type"/>
+	<string name="occupancy" title="Occupancy" />
+	
+	</entity>
+
+</domain-models>
